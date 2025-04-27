@@ -1,0 +1,29 @@
+/* app/globals.css */
+body {
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  button {
+    cursor: pointer;
+    padding: 0.6em 1.2em;
+    background: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-top: 1em;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 200px;
+    padding: 1em;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  
