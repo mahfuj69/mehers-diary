@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
@@ -42,16 +42,33 @@ export default function Home() {
 
   return (
     <GoogleOAuthProvider clientId="195839471495-akcgks1mbgf2utk9300f3ki94c7elkn6.apps.googleusercontent.com">
-      <main className="p-4 max-w-md mx-auto font-sans">
+      <main
+        style={{
+          padding: '1rem',
+          maxWidth: '600px',
+          margin: '0 auto',
+          fontFamily: 'Arial, sans-serif'
+        }}
+      >
         {!isAuthorized ? (
           <>
-            <h1 className="text-2xl mb-4">Login to view the diary</h1>
+            <h1 style={{ fontSize: '24px', marginBottom: '1rem' }}>Login to view the diary</h1>
             <GoogleLogin onSuccess={handleLoginSuccess} onError={() => alert('Login failed')} />
           </>
         ) : (
           <>
-            <h2 className="text-xl mb-2">Welcome, {userEmail}</h2>
-            <pre className="whitespace-pre-wrap bg-gray-100 p-4 rounded">{diaryContent}</pre>
+            <h2 style={{ fontSize: '20px', marginBottom: '0.5rem' }}>Welcome, {userEmail}</h2>
+            <pre
+              style={{
+                whiteSpace: 'pre-wrap',
+                backgroundColor: '#f0f0f0',
+                padding: '1rem',
+                borderRadius: '8px',
+                overflowX: 'auto'
+              }}
+            >
+              {diaryContent}
+            </pre>
           </>
         )}
       </main>
