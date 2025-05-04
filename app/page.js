@@ -42,73 +42,35 @@ export default function Home() {
 
   return (
     <GoogleOAuthProvider clientId="195839471495-akcgks1mbgf2utk9300f3ki94c7elkn6.apps.googleusercontent.com">
-      <>
-        <style>
-          {`
-            :root {
-              --background: #ffffff;
-              --foreground: #171717;
-              --box-bg: #f5f5f5;
-            }
-            @media (prefers-color-scheme: dark) {
-              :root {
-                --background: #0a0a0a;
-                --foreground: #ededed;
-                --box-bg: #1a1a1a;
-              }
-            }
-            body {
-              margin: 0;
-              padding: 0;
-              background-color: var(--background);
-              color: var(--foreground);
-              font-family: sans-serif;
-            }
-          `}
-        </style>
-
-        <main
-          style={{
-            padding: '1rem',
-            maxWidth: '600px',
-            margin: '0 auto',
-            backgroundColor: 'var(--background)',
-            color: 'var(--foreground)',
-            fontFamily: 'sans-serif',
-            minHeight: '100vh',
-          }}
-        >
-          {!isAuthorized ? (
-            <>
-              <h1 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
-                Login to view the diary
-              </h1>
-              <GoogleLogin
-                onSuccess={handleLoginSuccess}
-                onError={() => alert('Login failed')}
-              />
-            </>
-          ) : (
-            <>
-              <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>
-                Welcome, {userEmail}
-              </h2>
-              <pre
-                style={{
-                  whiteSpace: 'pre-wrap',
-                  wordWrap: 'break-word',
-                  backgroundColor: 'var(--box-bg)',
-                  padding: '1rem',
-                  borderRadius: '8px',
-                  overflowX: 'auto',
-                }}
-              >
-                {diaryContent}
-              </pre>
-            </>
-          )}
-        </main>
-      </>
+      <main style={{ padding: '1rem', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial' }}>
+        {!isAuthorized ? (
+          <>
+            <h1 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Login to view the diary</h1>
+            <GoogleLogin
+              onSuccess={handleLoginSuccess}
+              onError={() => alert('Login failed')}
+              auto_select
+              useOneTap
+            />
+          </>
+        ) : (
+          <>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Welcome, {userEmail}</h2>
+            <pre
+              style={{
+                whiteSpace: 'pre-wrap',
+                backgroundColor: '#f5f5f5',
+                padding: '1rem',
+                borderRadius: '8px',
+                border: '1px solid #ccc',
+                overflowWrap: 'break-word',
+              }}
+            >
+              {diaryContent}
+            </pre>
+          </>
+        )}
+      </main>
     </GoogleOAuthProvider>
   );
 }
