@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 const allowedEmails = [
   'mahguj@gmail.com',
   'mahfuuuj@gmail.com',
-  'samiaislamsua16@gmail.com'
+  'samiaislamsua16@gmail.com',
 ];
 
 export default function Home() {
@@ -42,29 +42,28 @@ export default function Home() {
 
   return (
     <GoogleOAuthProvider clientId="195839471495-akcgks1mbgf2utk9300f3ki94c7elkn6.apps.googleusercontent.com">
-      <main
-        style={{
-          padding: '1rem',
-          maxWidth: '600px',
-          margin: '0 auto',
-          fontFamily: 'Arial, sans-serif'
-        }}
-      >
+      <main style={{ padding: '1rem', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial' }}>
         {!isAuthorized ? (
           <>
-            <h1 style={{ fontSize: '24px', marginBottom: '1rem' }}>Login to view the diary</h1>
-            <GoogleLogin onSuccess={handleLoginSuccess} onError={() => alert('Login failed')} />
+            <h1 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Login to view the diary</h1>
+            <GoogleLogin
+              onSuccess={handleLoginSuccess}
+              onError={() => alert('Login failed')}
+              auto_select
+              useOneTap
+            />
           </>
         ) : (
           <>
-            <h2 style={{ fontSize: '20px', marginBottom: '0.5rem' }}>Welcome, {userEmail}</h2>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Welcome, {userEmail}</h2>
             <pre
               style={{
                 whiteSpace: 'pre-wrap',
-                backgroundColor: '#f0f0f0',
+                backgroundColor: '#f5f5f5',
                 padding: '1rem',
                 borderRadius: '8px',
-                overflowX: 'auto'
+                border: '1px solid #ccc',
+                overflowWrap: 'break-word',
               }}
             >
               {diaryContent}
