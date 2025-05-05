@@ -25,6 +25,7 @@ export default function Home() {
     } else {
       setUserEmail(null);
       setIsAuthorized(false);
+      alert('You are not authorized to view the diary.');
     }
   };
 
@@ -33,12 +34,17 @@ export default function Home() {
       fetch('/diary.txt')
         .then((res) => res.text())
         .then((text) => {
-          // Reverse entries by date headers and preserve formatting
-          const reversed = text
-            .split(/(?=^== \d{4}-\d{2}-\d{2} ==)/gm) // Keep the delimiter
-            .map(e => e.trimEnd())
-            .reverse()
-            .join('\n\n');
+          // Split entries by the date header format: ##### DATE: YYYY-MM-DD ##########
+          const entries = text.split(/(?=^##### DATE: \d{4}-\d{2}-\d{2} ##########)/gm);
+
+          // Check the result of the split
+          console.log('Entries split:', entries);
+
+          // Reverse the entries while preserving the formatting
+          const reversed = entries
+            .map((e) => e.trimEnd()) // Trim extra spaces or newlines
+            .reverse() // Reverse the entries
+            .join('\n\n'); // Join them back with double newlines between entries
 
           setDiaryContent(reversed);
         })
@@ -73,6 +79,8 @@ export default function Home() {
                 borderRadius: '8px',
                 border: '1px solid #ccc',
                 overflowWrap: 'break-word',
+                maxHeight: '400px', // Add scrolling if the content is long
+                overflowY: 'auto',
               }}
             >
               {diaryContent}
