@@ -32,7 +32,16 @@ export default function Home() {
     if (isAuthorized) {
       fetch('/diary.txt')
         .then((res) => res.text())
-        .then((text) => setDiaryContent(text))
+        .then((text) => {
+          // Reverse entries by date headers and preserve formatting
+          const reversed = text
+            .split(/(?=^== \d{4}-\d{2}-\d{2} ==)/gm) // Keep the delimiter
+            .map(e => e.trimEnd())
+            .reverse()
+            .join('\n\n');
+
+          setDiaryContent(reversed);
+        })
         .catch((err) => {
           console.error('Failed to load diary:', err);
           setDiaryContent('Failed to load diary content.');
