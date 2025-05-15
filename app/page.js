@@ -34,17 +34,12 @@ export default function Home() {
       fetch('/diary.txt')
         .then((res) => res.text())
         .then((text) => {
-          // Split entries by the date header format: ##### DATE: YYYY-MM-DD ##########
           const entries = text.split(/(?=^##### DATE: \d{4}-\d{2}-\d{2} ##########)/gm);
 
-          // Check the result of the split
-          console.log('Entries split:', entries);
-
-          // Reverse the entries while preserving the formatting
           const reversed = entries
-            .map((e) => e.trimEnd()) // Trim extra spaces or newlines
-            .reverse() // Reverse the entries
-            .join('\n\n'); // Join them back with double newlines between entries
+            .map((e) => e.trimEnd())
+            .reverse()
+            .join('\n\n');
 
           setDiaryContent(reversed);
         })
@@ -57,7 +52,15 @@ export default function Home() {
 
   return (
     <GoogleOAuthProvider clientId="195839471495-akcgks1mbgf2utk9300f3ki94c7elkn6.apps.googleusercontent.com">
-      <main style={{ padding: '1rem', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial' }}>
+      <main
+        style={{
+          padding: '1rem',
+          width: '100%',
+          maxWidth: '100%',
+          fontFamily: 'Arial, sans-serif',
+          boxSizing: 'border-box',
+        }}
+      >
         {!isAuthorized ? (
           <>
             <h1 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Login to view the diary</h1>
@@ -70,7 +73,9 @@ export default function Home() {
           </>
         ) : (
           <>
-            <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Welcome, {userEmail}</h2>
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>
+              Welcome, {userEmail}
+            </h2>
             <pre
               style={{
                 whiteSpace: 'pre-wrap',
@@ -79,8 +84,10 @@ export default function Home() {
                 borderRadius: '8px',
                 border: '1px solid #ccc',
                 overflowWrap: 'break-word',
-                maxHeight: '400px', // Add scrolling if the content is long
+                width: '100%',
+                maxHeight: '80vh',
                 overflowY: 'auto',
+                boxSizing: 'border-box',
               }}
             >
               {diaryContent}
