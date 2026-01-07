@@ -9,7 +9,9 @@ export default function Home() {
     fetch('/diary.txt')
       .then((res) => res.text())
       .then((text) => {
-        const entries = text.split(/(?=^##### DATE: \d{4}-\d{2}-\d{2} ##########)/gm);
+        const entries = text.split(
+          /(?=^##### DATE: \d{4}-\d{2}-\d{2} ##########)/gm
+        );
 
         const reversed = entries
           .map((e) => e.trimEnd())
@@ -28,30 +30,44 @@ export default function Home() {
     <main
       style={{
         padding: '1rem',
-        width: '100%',
-        maxWidth: '100%',
+        maxWidth: '600px',
+        margin: '0 auto',
         fontFamily: 'Arial, sans-serif',
-        boxSizing: 'border-box',
       }}
     >
-      <h1 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>My Diary</h1>
-      <pre
+      <h1
         style={{
-          whiteSpace: 'pre-wrap',
-          backgroundColor: '#f5f5f5',
-          padding: '1rem',
-          borderRadius: '8px',
-          border: '1px solid #ccc',
-          overflowWrap: 'break-word',
-          width: '100%',
-          maxHeight: '80vh',
-          overflowY: 'auto',
-          boxSizing: 'border-box',
+          fontSize: '1.4rem',
+          marginBottom: '1rem',
+          textAlign: 'center',
         }}
       >
-        {diaryContent}
-      </pre>
+        My Diary
+      </h1>
+
+      {/* Scrollable diary box */}
+      <div
+        style={{
+          maxHeight: '75vh',
+          overflowY: 'auto',
+          backgroundColor: '#f5f5f5',
+          padding: '1rem',
+          borderRadius: '10px',
+          border: '1px solid #ccc',
+        }}
+      >
+        <pre
+          style={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            margin: 0,
+            fontSize: '0.95rem',
+            lineHeight: '1.6',
+          }}
+        >
+          {diaryContent}
+        </pre>
+      </div>
     </main>
   );
 }
-
