@@ -4,7 +4,17 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [diaryContent, setDiaryContent] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Detect mobile screen
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Load diary
   useEffect(() => {
     fetch('/diary.txt')
       .then((res) => res.text())
@@ -45,10 +55,10 @@ export default function Home() {
         My Diary
       </h1>
 
-      {/* Scrollable diary box */}
+      {/* Diary container */}
       <div
         style={{
-          maxHeight: '75vh',
+          maxHeight: isMobile ? 'none' : '75vh',
           overflowY: 'auto',
           backgroundColor: '#f5f5f5',
           padding: '1rem',
